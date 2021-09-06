@@ -1,8 +1,8 @@
-export default class Electrodomestico {
+class Electrodomestico {
   constructor(consumo, esExtranjero) {
     this.consumo = consumo;
     this.esExtranjero = esExtranjero;
-    this.precio = 0;
+    this.precio = this.calcularPrecio();
   }
 
   setConsumo(consumo) {
@@ -26,6 +26,7 @@ export default class Electrodomestico {
   }
 
   calcularPrecio() {
+    this.precio = 0;
     switch (this.consumo) {
       case "A":
         this.precio += 450000;

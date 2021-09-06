@@ -1,5 +1,3 @@
-import Electrodomestico from "./Electrodomestico";
-
 class Tv extends Electrodomestico {
   constructor(consumo, esExtranjero, pulgadas, esTDT) {
     super(consumo, esExtranjero);
@@ -24,16 +22,16 @@ class Tv extends Electrodomestico {
   }
 
   calcularPrecio() {
-    tamaño = this.pulgadas;
-
+    let tamaño = this.pulgadas;
+    let precio = super.calcularPrecio();
     if (tamaño > 40) {
-      precio += super.calcularPrecio() * 0.3;
+      precio += precio * 0.3;
     }
 
     if (this.esTDT) {
       precio += 250000;
     }
 
-    return this.precio;
+    return precio;
   }
 }

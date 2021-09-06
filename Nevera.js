@@ -1,10 +1,10 @@
-import Electrodomestico from "./Electrodomestico";
-
 class Nevera extends Electrodomestico {
   constructor(consumo, esExtranjero, capacidad) {
     super(consumo, esExtranjero);
     this.capacidad = capacidad;
+    this.precio = this.calcularPrecio();
   }
+
   setCapacidad(capacidad) {
     this.capacidad = capacidad;
   }
@@ -15,7 +15,7 @@ class Nevera extends Electrodomestico {
 
   recargoPorCapacidad() {
     if (this.capacidad > 120) {
-      recargo = (this.capacidad - 120) / 10;
+      let recargo = (this.capacidad - 120) / 10;
       return this.precio * recargo * 0.05;
     }
   }
