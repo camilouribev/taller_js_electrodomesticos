@@ -5,10 +5,6 @@ class Nevera extends Electrodomestico {
     this.precio = this.calcularPrecio();
   }
 
-  setCapacidad(capacidad) {
-    this.capacidad = capacidad;
-  }
-
   getCapacidad() {
     return this.capacidad;
   }

@@ -6,16 +6,8 @@ class Tv extends Electrodomestico {
     this.precio = this.calcularPrecio();
   }
 
-  setPulgadas(pulgadas) {
-    this.pulgadas = pulgadas;
-  }
-
   getPulgadas() {
     return this.pulgadas;
-  }
-
-  setEsTDT(esTDT) {
-    this.esTDT = esTDT;
   }
 
   getEsTDT() {

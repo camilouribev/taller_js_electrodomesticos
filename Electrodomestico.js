@@ -5,20 +5,12 @@ class Electrodomestico {
     this.precio = this.calcularPrecio();
   }
 
-  setConsumo(consumo) {
-    this.consumo = consumo.toUpperCase();
-  }
-
   getConsumo() {
     return this.consumo;
   }
 
   getEsExtranjero() {
     return this.esExtranjero;
-  }
-
-  setPrecio(precio) {
-    this.precio = precio;
   }
 
   getPrecio() {

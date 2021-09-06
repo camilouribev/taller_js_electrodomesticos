@@ -1,4 +1,5 @@
 const inventario = [];
+const carrito = [];
 let html = "";
 
 function crearElectrodomestico() {
@@ -172,6 +173,13 @@ function setEsTDT() {
   return esTDT;
 }
 
+function agregaACarrito() {
+  inventario.forEach(function (elem, index) {
+    inventario.splice(index, 1);
+    array2.push(elem);
+  });
+}
+
 function renderInventario() {
   html = "";
   inventario.forEach(function (e, i) {
@@ -188,6 +196,8 @@ function renderInventario() {
       "</td>" +
       "</tr>";
   });
+
+  html += "<h2>Total:" + inventario.length + " elementos en inventario </h2>";
 
   document.getElementById("putHere").innerHTML = html;
 }
