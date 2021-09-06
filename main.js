@@ -1,4 +1,5 @@
 const inventario = [];
+let html = "";
 
 function crearElectrodomestico() {
   let tipo = window.prompt(
@@ -21,7 +22,7 @@ function crearElectrodomestico() {
       alert("Opcion no válida");
   }
 
-  return console.log(inventario);
+  return renderInventario();
 }
 
 function crearTv() {
@@ -29,23 +30,32 @@ function crearTv() {
   let esExtranjero = setEsExtranjero();
   let esTDT = setEsTDT();
   let pulgadas = setPulgadas();
-  let TV = new Tv(consumo, esExtranjero, pulgadas, esTDT);
-  inventario.push(TV);
+  let numero = setNumero();
+  for (i = 0; i < numero; i++) {
+    let TV = new Tv(consumo, esExtranjero, pulgadas, esTDT);
+    inventario.push(TV);
+  }
 }
 
 function crearGenerico() {
   let consumo = setConsumo();
   let esExtranjero = setEsExtranjero();
-  let generico = new Electrodomestico(consumo, esExtranjero);
-  inventario.push(generico);
+  let numero = setNumero();
+  for (i = 0; i < numero; i++) {
+    let generico = new Electrodomestico(consumo, esExtranjero);
+    inventario.push(generico);
+  }
 }
 
 function crearNevera() {
   let consumo = setConsumo();
   let capacidad = setCapacidad();
   let esExtranjero = setEsExtranjero();
-  let nevera = new Nevera(consumo, esExtranjero, capacidad);
-  inventario.push(nevera);
+  let numero = setNumero();
+  for (i = 0; i < numero; i++) {
+    let nevera = new Nevera(consumo, esExtranjero, capacidad);
+    inventario.push(nevera);
+  }
 }
 
 function setConsumo() {
@@ -76,6 +86,7 @@ function setCapacidad() {
   } catch (e) {
     alert("Ingrese una capacidad válida");
     setCapacidad();
+    return;
   }
 
   return parseInt(capacidad);
@@ -93,6 +104,26 @@ function setPulgadas() {
   return parseInt(pulgadas);
 }
 
+function setNumero() {
+  let numero = window.prompt(
+    "Escribe el numero de elementos de estas características que deseas crear en el inventario: "
+  );
+
+  try {
+    parseInt(numero);
+  } catch (e) {
+    alert("Ingrese un número válido");
+    setNumero();
+  }
+
+  if (!Number.isInteger(parseInt(numero)) || parseInt(numero) <= 0) {
+    alert("Ingrese un número válido");
+    setNumero();
+  }
+
+  return parseInt(numero);
+}
+
 function setEsExtranjero() {
   let esExtranjero = window.prompt(
     "El electrodoméstico es fabricado en el extranjero?(s/n):  "
@@ -102,16 +133,18 @@ function setEsExtranjero() {
     case "SI":
     case "s":
     case "si":
+    case "Si":
       esExtranjero = true;
       break;
     case "N":
     case "NO":
     case "n":
     case "no":
+    case "No":
       esExtranjero = false;
       break;
     default:
-      alert("Ingrese una opción válida lel");
+      alert("Ingrese una opción válida");
       setEsExtranjero();
   }
   return esExtranjero;
@@ -133,12 +166,28 @@ function setEsTDT() {
       esTDT = false;
       break;
     default:
-      alert("Ingrese una opción válida lel");
+      alert("Ingrese una opción válida");
       setEsTDT();
   }
   return esTDT;
 }
 
-// const TV = new Tv("A", true, 50, true);
+function renderInventario() {
+  html = "";
+  inventario.forEach(function (e, i) {
+    html +=
+      "<tr>" +
+      "<td>" +
+      e.constructor.name +
+      "</td>" +
+      "<td>" +
+      e.consumo +
+      "</td>" +
+      "<td>" +
+      e.precio +
+      "</td>" +
+      "</tr>";
+  });
 
-// console.log(TV.calcularPrecio());
+  document.getElementById("putHere").innerHTML = html;
+}

@@ -6,7 +6,7 @@ class Electrodomestico {
   }
 
   setConsumo(consumo) {
-    this.consumo = consumo;
+    this.consumo = consumo.toUpperCase();
   }
 
   getConsumo() {
@@ -27,7 +27,7 @@ class Electrodomestico {
 
   calcularPrecio() {
     this.precio = 0;
-    switch (this.consumo) {
+    switch (this.consumo.toUpperCase()) {
       case "A":
         this.precio += 450000;
         break;

@@ -3,6 +3,7 @@ class Tv extends Electrodomestico {
     super(consumo, esExtranjero);
     this.pulgadas = pulgadas;
     this.esTDT = esTDT;
+    this.precio = this.calcularPrecio();
   }
 
   setPulgadas(pulgadas) {

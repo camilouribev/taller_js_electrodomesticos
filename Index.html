@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
     <title>Document</title>
   </head>
   <body>
@@ -13,6 +14,15 @@
       value="Agrega un electrodoméstico"
       onclick="crearElectrodomestico();"
     />
+    <h2>Inventario</h2>
+    <table>
+      <thead>
+        <th>Tipo</th>
+        <th>Consumo</th>
+        <th>Precio</th>
+      </thead>
+      <tbody id="putHere"></tbody>
+    </table>
   </body>
   <script src="Electrodomestico.js"></script>
   <script src="Nevera.js"></script>
