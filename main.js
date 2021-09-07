@@ -274,7 +274,7 @@ function renderInventario() {
       "</tr>";
   });
 
-  html += "<h2>Total:" + inventario.length + " elementos en inventario </h2>";
+  html += "<h2>Total: " + inventario.length + " elementos en inventario </h2>";
 
   document.getElementById("inventario").innerHTML = html;
   renderCarrito();
@@ -282,6 +282,10 @@ function renderInventario() {
 function modificarInventario() {
   inventario = inventario.filter((el) => !carrito.includes(el));
   renderInventario();
+}
+
+function getTotalCarrito() {
+  return carrito.map((item) => item.precio).reduce((prev, next) => prev + next);
 }
 
 function renderCarrito() {
@@ -301,7 +305,9 @@ function renderCarrito() {
       "</tr>";
   });
 
-  html += "<h2>Total:" + carrito.length + " elementos en carrito </h2>";
+  html +=
+    "<h2>Hay " + carrito.length + " elementos en el carrito de compras</h2>";
+  html += "<h2>Total factura: $" + getTotalCarrito() + "   </h2>";
 
   document.getElementById("carrito").innerHTML = html;
   console.log("inventario: ");
