@@ -1,5 +1,5 @@
-const inventario = [];
-const carrito = [];
+let inventario = [];
+let carrito = [];
 let html = "";
 
 function crearElectrodomestico() {
@@ -22,8 +22,6 @@ function crearElectrodomestico() {
     default:
       alert("Opcion no válida");
   }
-
-  return renderInventario();
 }
 
 function crearTv() {
@@ -36,6 +34,7 @@ function crearTv() {
     let TV = new Tv(consumo, esExtranjero, pulgadas, esTDT);
     inventario.push(TV);
   }
+  renderInventario();
 }
 
 function crearGenerico() {
@@ -46,6 +45,7 @@ function crearGenerico() {
     let generico = new Electrodomestico(consumo, esExtranjero);
     inventario.push(generico);
   }
+  renderInventario();
 }
 
 function crearNevera() {
@@ -57,6 +57,7 @@ function crearNevera() {
     let nevera = new Nevera(consumo, esExtranjero, capacidad);
     inventario.push(nevera);
   }
+  renderInventario();
 }
 
 function setConsumo() {
@@ -106,9 +107,7 @@ function setPulgadas() {
 }
 
 function setNumero() {
-  let numero = window.prompt(
-    "Escribe el numero de elementos de estas características que deseas crear en el inventario: "
-  );
+  let numero = window.prompt("Escribe el numero de elementos : ");
 
   try {
     parseInt(numero);
@@ -174,10 +173,88 @@ function setEsTDT() {
 }
 
 function agregaACarrito() {
-  inventario.forEach(function (elem, index) {
-    inventario.splice(index, 1);
-    array2.push(elem);
+  let tipo = window.prompt(
+    "Selecciona el tipo de electrodomestico que quieres en tu carrito: \n A.Nevera \n B.Televisor \n C.Otro"
+  );
+  switch (tipo) {
+    case "A":
+    case "a":
+      agregaNeveraACarrito();
+      break;
+    case "B":
+    case "b":
+      agregaTVACarrito();
+      break;
+    case "C":
+    case "c":
+      agregaGenericoACarrito();
+      break;
+    default:
+      alert("Opcion no válida");
+  }
+}
+
+function agregaGenericoACarrito() {
+  let tipo = "Electrodomestico";
+  let consumo = setConsumo();
+  let esExtranjero = setEsExtranjero();
+  let numero = setNumero();
+  let matches = inventario.filter((item) => {
+    return (
+      item.constructor.name === tipo &&
+      item.consumo.toUpperCase() === consumo.toUpperCase() &&
+      item.esExtranjero === esExtranjero
+    );
   });
+  chequeoStock(matches, numero);
+}
+
+function agregaTVACarrito() {
+  let tipo = "Tv";
+  let consumo = setConsumo();
+  let esExtranjero = setEsExtranjero();
+  let esTDT = setEsTDT();
+  let pulgadas = setPulgadas();
+  let numero = setNumero();
+
+  let matches = inventario.filter((item) => {
+    return (
+      item.constructor.name === tipo &&
+      item.consumo.toUpperCase() === consumo.toUpperCase() &&
+      item.esExtranjero === esExtranjero &&
+      item.esTDT === esTDT &&
+      item.pulgadas === pulgadas
+    );
+  });
+  chequeoStock(matches, numero);
+}
+
+function agregaNeveraACarrito() {
+  let tipo = "Nevera";
+  let consumo = setConsumo();
+  let capacidad = setCapacidad();
+  let esExtranjero = setEsExtranjero();
+  let numero = setNumero();
+  let matches = inventario.filter((item) => {
+    return (
+      item.constructor.name === tipo &&
+      item.consumo.toUpperCase() === consumo.toUpperCase() &&
+      item.esExtranjero === esExtranjero &&
+      item.capacidad === capacidad
+    );
+  });
+  chequeoStock(matches, numero);
+}
+
+function chequeoStock(matches, numero) {
+  if (matches.length > numero) {
+    let extraccion = matches.splice(0, numero);
+    carrito.push(...extraccion);
+  } else {
+    carrito.push(...matches);
+    alert("El inventario se quedó sin stock del producto solicitado");
+  }
+  modificarInventario();
 }
 
 function renderInventario() {
@@ -199,5 +276,36 @@ function renderInventario() {
 
   html += "<h2>Total:" + inventario.length + " elementos en inventario </h2>";
 
-  document.getElementById("putHere").innerHTML = html;
+  document.getElementById("inventario").innerHTML = html;
+  renderCarrito();
+}
+function modificarInventario() {
+  inventario = inventario.filter((el) => !carrito.includes(el));
+  renderInventario();
+}
+
+function renderCarrito() {
+  html = "";
+  carrito.forEach(function (e, i) {
+    html +=
+      "<tr>" +
+      "<td>" +
+      e.constructor.name +
+      "</td>" +
+      "<td>" +
+      e.consumo +
+      "</td>" +
+      "<td>" +
+      e.precio +
+      "</td>" +
+      "</tr>";
+  });
+
+  html += "<h2>Total:" + carrito.length + " elementos en carrito </h2>";
+
+  document.getElementById("carrito").innerHTML = html;
+  console.log("inventario: ");
+  console.log(inventario);
+  console.log("carrito: ");
+  console.log(carrito);
 }

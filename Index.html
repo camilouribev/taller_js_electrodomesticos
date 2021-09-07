@@ -9,7 +9,7 @@
   </head>
   <body>
     <input
-      id="agregaElectrodomestico"
+      id="agregaElectrodomesticoInventario"
       type="button"
       value="Agrega un electrodoméstico al inventario"
       onclick="crearElectrodomestico();"
@@ -22,7 +22,23 @@
         <th>Consumo</th>
         <th>Precio</th>
       </thead>
-      <tbody id="putHere"></tbody>
+      <tbody id="inventario"></tbody>
+    </table>
+    <input
+      id="agregaElectrodomesticoCarrito"
+      type="button"
+      value="Agrega un electrodoméstico al carrito"
+      onclick="agregaACarrito();"
+    />
+
+    <h2>Carrito</h2>
+    <table>
+      <thead>
+        <th>Tipo</th>
+        <th>Consumo</th>
+        <th>Precio</th>
+      </thead>
+      <tbody id="carrito"></tbody>
     </table>
   </body>
   <script src="Electrodomestico.js"></script>
